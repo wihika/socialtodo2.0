@@ -1,0 +1,166 @@
+<body>
+  <% if !is_logged_in? %>
+    <% provide(:title, "Log in") %>
+    <div class="row">
+      <div class="wrapper">
+        <% flash.each do |key, value| %>
+          <%= content_tag(:div, value, class: "validation-error alert-danger-#{key}") %>
+        <% end %>
+        <%= form_for(:session, :html => {:class => "login"}, url: '/user/login') do |f| %>
+          <h1>Log in</h1>
+          <%= f.label :email %>
+          <%= f.email_field :email, class: 'form-control', 'email' =>"name"%>
+          <%= f.label :password %>
+          <%= f.password_field :password, class: 'form-control', 'password' =>"name"%>
+          <!--<!%= f.submit "Log in", class: "loginButton log-in-submit" %>-->
+          <%= button_tag(type: 'submit', class: "loginButton log-in-submit") do %>
+            <span class="state">Log in</span>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <div class="wrapper">
+      <%= render 'users/form' %>
+    </div>
+    <footer>
+      <a href="/user/logout">Log out</a>
+    </footer>
+    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js'></script>
+    <script type='text/javascript'>
+      function closeSignInForm() {
+        $('.menu').animate({
+          left: "-350px"
+        }, 200);
+      }
+    
+      function openSignInForm() {
+        $('.menu').animate({
+          left: "37.37%"
+        }, 200);
+      }
+    </script>
+  <% else %><!--if !is_logged_in?-->
+   <header>
+    <a href="/user/logout">Log out</a>
+   </header>
+   <div class="wrapper">
+     <p>Welcome, <%= current_user.name %></p>
+     <%= render 'tasks/form' %>
+   </div>
+    <% if @tasks!=nil %>
+      <% @tasks.each do |task| %>
+      <div class="tasks-item wrapper">
+        <% if task.done == true %> 
+          <div class = "tasks-list-item complete-task">
+            <tr>
+              <p>
+                <label>Title:</label>
+                <%= task.title%>
+              </p>
+              <p>
+                <label>Description: </label>
+                <%= task.description %>
+              </p>
+              <p><%= task.collaborator1 %></p>
+              <p><%= task.collaborator2 %></p>
+              <p><%= task.collaborator3 %></p>
+              
+              <% if task.owner == current_user.email  %>
+                <%= form_for(@task, :html => {:class => "taskForm", :name => 'deletetask'}, url: '/task/delete') do |f| %>
+                  <%= f.hidden_field :id, :value =>  task.id %>
+                  <%= f.hidden_field :title, :value =>  task.title %>
+                  <%= f.hidden_field :description, :value =>  task.description %>
+                  <%= f.hidden_field :owner, :value =>  task.owner %>
+                  <%= f.hidden_field :collaborator1, :value =>  task.collaborator1 %>
+                  <%= f.hidden_field :collaborator2, :value =>  task.collaborator2 %>
+                  <%= f.hidden_field :collaborator3, :value =>  task.collaborator3 %>
+                  <%= f.hidden_field :done , :value => task.done%>
+                  <!--<!%= f.submit "Delete", :class => "taskRedFormButton delete-task" %>-->
+                  <%= button_tag(type: 'submit', class: "taskRedFormButton delete-task") do %>
+                    <span class="state">Delete</span>
+                  <% end %>
+                <% end %><!--form delete task-->
+              <% end  %><!--if task.owner == current_user.email-->
+                <%= form_for(@task, :html => {:class => "taskForm", :name => 'updatetask'}, url: '/task/complete') do |f| %>
+                  <%= f.hidden_field :id, :value =>  task.id %>
+                  <%= f.hidden_field :title, :value =>  task.title %>
+                  <%= f.hidden_field :description, :value =>  task.description %>
+                  <%= f.hidden_field :owner, :value =>  task.owner %>
+                  <%= f.hidden_field :collaborator1, :value =>  task.collaborator1 %>
+                  <%= f.hidden_field :collaborator2, :value =>  task.collaborator2 %>
+                  <%= f.hidden_field :collaborator3, :value =>  task.collaborator3 %>
+                  <%= f.hidden_field :done , :value => 0%>
+                  <!--<!%= f.submit "Complete", :class => "taskGreenFormButton toggle-task" %>-->
+                  <%= button_tag(type: 'submit', class: "taskGreenFormButton toggle-task") do %>
+                    <span class="state">Complete</span>
+                  <% end %>
+                <% end %><!--form update task-->
+            </tr>
+          </div>
+        <% else %><!--task.done == true-->
+          <div class = "tasks-list-item">
+            <tr>
+              <p>
+                <label>Title:</label>
+                <%= task.title%>
+              </p>
+              <p>
+                <label>Description: </label>
+                <%= task.description %>
+              </p>
+              <p><%= task.collaborator1 %></p>
+              <p><%= task.collaborator2 %></p>
+              <p><%= task.collaborator3 %></p>
+              
+              <% if task.owner == current_user.email  %>
+                <%= form_for(@task, :html => {:class => "taskForm", :name => 'deletetask'}, url: '/task/delete') do |f| %>
+                  <%= f.hidden_field :id, :value =>  task.id %>
+                  <%= f.hidden_field :title, :value =>  task.title %>
+                  <%= f.hidden_field :description, :value =>  task.description %>
+                  <%= f.hidden_field :owner, :value =>  task.owner %>
+                  <%= f.hidden_field :collaborator1, :value =>  task.collaborator1 %>
+                  <%= f.hidden_field :collaborator2, :value =>  task.collaborator2 %>
+                  <%= f.hidden_field :collaborator3, :value =>  task.collaborator3 %>
+                  <%= f.hidden_field :done , :value => task.done%>
+                  <!--<!%= f.submit "Delete", :class => "taskRedFormButton delete-task" %>-->
+                  <%= button_tag(type: 'submit', class: "taskRedFormButton delete-task") do %>
+                    <span class="state">Delete</span>
+                  <% end %>
+                <% end %><!--form delete task-->
+              <% end  %><!--if task.owner == current_user.email-->
+                <%= form_for(@task, :html => {:class => "taskForm", :name => 'updatetask'}, url: '/task/complete') do |f| %>
+                  <%= f.hidden_field :id, :value =>  task.id %>
+                  <%= f.hidden_field :title, :value =>  task.title %>
+                  <%= f.hidden_field :description, :value =>  task.description %>
+                  <%= f.hidden_field :owner, :value =>  task.owner %>
+                  <%= f.hidden_field :collaborator1, :value =>  task.collaborator1 %>
+                  <%= f.hidden_field :collaborator2, :value =>  task.collaborator2 %>
+                  <%= f.hidden_field :collaborator3, :value =>  task.collaborator3 %>
+                  <%= f.hidden_field :done , :value => 1%>
+                  <!--<!%= f.submit "Not Complete", :class => "taskRedFormButton toggle-task" %>-->
+                  <%= button_tag(type: 'submit', class: "taskRedFormButton toggle-task") do %>
+                    <span class="state">Not Complete</span>
+                  <% end %>
+                <% end %><!--form update task-->
+            </tr>
+          </div>
+        <% end %><!--if task.done == true-->
+      </div>
+      <% end %><!--@tasks.each do |task|-->
+    <% end %><!--if @tasks!=nil-->
+    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js'></script>
+    <script type='text/javascript'>
+      function closeCreateTaskForm() {
+        $('.menu').animate({
+          left: "-350px"
+        }, 200);
+      }
+      
+      function openCreateTaskForm() {
+        $('.menu').animate({
+          left: "37.37%"
+        }, 200);
+      }
+    </script>
+  <% end %><!--if !is_logged_in?-->
+</body>

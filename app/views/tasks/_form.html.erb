@@ -1,0 +1,46 @@
+<%= form_for(@task, :html => {:class => "login", :name => 'createtask'}, url: '/task/create') do |f| %>
+  <% if @task.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
+
+      <ul>
+      <% @task.errors.full_messages.each do |message| %>
+        <li  class ="validation-error"><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title, 'title' =>"name"%>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_field :description, 'description' =>"name"%>
+  </div>
+  <div class="field">
+    <%= f.hidden_field :owner, :value =>  current_user.email %>
+  </div>
+  <div class="field">
+    <%= f.label :collaborator1 %><br>
+    <%= f.text_field :collaborator1, 'collaborator1' =>"name"%>
+  </div>
+  <div class="field">
+    <%= f.label :collaborator2 %><br>
+    <%= f.text_field :collaborator2, 'collaborator2' =>"name"%>
+  </div>
+  <div class="field">
+    <%= f.label :collaborator3 %><br>
+    <%= f.text_field :collaborator3, 'collaborator3' =>"name"%>
+  </div>
+  <div class="field">
+    <%= f.hidden_field :done , :value => 0%>
+  </div>
+  <div class="actions">
+    <!--<!%= f.submit :class => "submitButton" %>-->
+    <%= button_tag(type: 'submit', class: "submitButton") do %>
+      <span class="state">Create</span>
+    <% end %>
+  </div>
+<% end %>

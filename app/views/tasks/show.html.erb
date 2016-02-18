@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @task.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @task.description %>
+</p>
+
+<p>
+  <strong>Owner:</strong>
+  <%= @task.owner %>
+</p>
+
+<p>
+  <strong>Collaborator1:</strong>
+  <%= @task.collaborator1 %>
+</p>
+
+<p>
+  <strong>Collaborator2:</strong>
+  <%= @task.collaborator2 %>
+</p>
+
+<p>
+  <strong>Collaborator3:</strong>
+  <%= @task.collaborator3 %>
+</p>
+
+<p>
+  <strong>Done:</strong>
+  <%= @task.done %>
+</p>
+
+<%= link_to 'Edit', edit_task_path(@task) %> |
+<%= link_to 'Back', tasks_path %>

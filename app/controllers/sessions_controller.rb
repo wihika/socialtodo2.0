@@ -25,7 +25,7 @@ class SessionsController < ApplicationController
         redirect_to '/'
       end
     else
-      flash.now[:danger] = 'Invalid email/password combination'
+      flash.now[:danger] = 'Invalid email address'
       flash.keep(:danger)
       redirect_to '/'
     end

@@ -13,9 +13,9 @@ class SessionsController < ApplicationController
   end
   
   def create
-    user = User.find_by(email: params[:session][:email].downcase)
+    user = User.find_by(email: params[:email].downcase)
     if user != nil
-      if user.password == params[:session][:password]
+      if user.password == params[:password]
         log_in user
         @tasks = Task.where(owner: current_user.email).find_each
         redirect_to '/'

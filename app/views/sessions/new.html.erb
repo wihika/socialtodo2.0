@@ -44,7 +44,7 @@
     <a href="/user/logout">Log out</a>
    </header>
    <div class="wrapper">
-     <p>Welcome, <%= current_user.name %></p>
+     <p>Welcome, <%= current_user.fl_name %></p>
      <%= render 'tasks/form' %>
    </div>
     <% if @tasks!=nil %>
@@ -67,14 +67,14 @@
               
               <% if task.owner == current_user.email  %>
                 <%= form_for(@task, :html => {:class => "taskForm", :name => 'deletetask'}, url: '/task/delete') do |f| %>
-                  <%= f.hidden_field :id, :value =>  task.id %>
-                  <%= f.hidden_field :title, :value =>  task.title %>
-                  <%= f.hidden_field :description, :value =>  task.description %>
-                  <%= f.hidden_field :owner, :value =>  task.owner %>
-                  <%= f.hidden_field :collaborator1, :value =>  task.collaborator1 %>
-                  <%= f.hidden_field :collaborator2, :value =>  task.collaborator2 %>
-                  <%= f.hidden_field :collaborator3, :value =>  task.collaborator3 %>
-                  <%= f.hidden_field :done , :value => task.done%>
+                  <%= f.hidden_field :id, name: "id", :value =>  task.id %>
+                  <%= f.hidden_field :title, name: "title", :value =>  task.title %>
+                  <%= f.hidden_field :description, name: "description", :value =>  task.description %>
+                  <%= f.hidden_field :owner, name: "owner", :value =>  task.owner %>
+                  <%= f.hidden_field :collaborator1, name: "collaborator1", :value =>  task.collaborator1 %>
+                  <%= f.hidden_field :collaborator2, name: "collaborator2", :value =>  task.collaborator2 %>
+                  <%= f.hidden_field :collaborator3, name: "collaborator3", :value =>  task.collaborator3 %>
+                  <%= f.hidden_field :done , name: "done", :value => task.done%>
                   <!--<!%= f.submit "Delete", :class => "taskRedFormButton delete-task" %>-->
                   <%= button_tag(type: 'submit', class: "taskRedFormButton delete-task") do %>
                     <span class="state">Delete</span>
@@ -82,14 +82,14 @@
                 <% end %><!--form delete task-->
               <% end  %><!--if task.owner == current_user.email-->
                 <%= form_for(@task, :html => {:class => "taskForm", :name => 'updatetask'}, url: '/task/complete') do |f| %>
-                  <%= f.hidden_field :id, :value =>  task.id %>
-                  <%= f.hidden_field :title, :value =>  task.title %>
-                  <%= f.hidden_field :description, :value =>  task.description %>
-                  <%= f.hidden_field :owner, :value =>  task.owner %>
-                  <%= f.hidden_field :collaborator1, :value =>  task.collaborator1 %>
-                  <%= f.hidden_field :collaborator2, :value =>  task.collaborator2 %>
-                  <%= f.hidden_field :collaborator3, :value =>  task.collaborator3 %>
-                  <%= f.hidden_field :done , :value => 0%>
+                  <%= f.hidden_field :id, name: "id", :value =>  task.id %>
+                  <%= f.hidden_field :title, name: "title", :value =>  task.title %>
+                  <%= f.hidden_field :description, name: "description", :value =>  task.description %>
+                  <%= f.hidden_field :owner, name: "owner", :value =>  task.owner %>
+                  <%= f.hidden_field :collaborator1, name: "collaborator1", :value =>  task.collaborator1 %>
+                  <%= f.hidden_field :collaborator2, name: "collaborator2", :value =>  task.collaborator2 %>
+                  <%= f.hidden_field :collaborator3, name: "collaborator3", :value =>  task.collaborator3 %>
+                  <%= f.hidden_field :done , name: "done", :value => 0%>
                   <!--<!%= f.submit "Complete", :class => "taskGreenFormButton toggle-task" %>-->
                   <%= button_tag(type: 'submit', class: "taskGreenFormButton toggle-task") do %>
                     <span class="state">Complete</span>
@@ -114,14 +114,14 @@
               
               <% if task.owner == current_user.email  %>
                 <%= form_for(@task, :html => {:class => "taskForm", :name => 'deletetask'}, url: '/task/delete') do |f| %>
-                  <%= f.hidden_field :id, :value =>  task.id %>
-                  <%= f.hidden_field :title, :value =>  task.title %>
-                  <%= f.hidden_field :description, :value =>  task.description %>
-                  <%= f.hidden_field :owner, :value =>  task.owner %>
-                  <%= f.hidden_field :collaborator1, :value =>  task.collaborator1 %>
-                  <%= f.hidden_field :collaborator2, :value =>  task.collaborator2 %>
-                  <%= f.hidden_field :collaborator3, :value =>  task.collaborator3 %>
-                  <%= f.hidden_field :done , :value => task.done%>
+                  <%= f.hidden_field :id, name: "id", :value =>  task.id %>
+                  <%= f.hidden_field :title, name: "title", :value =>  task.title %>
+                  <%= f.hidden_field :description, name: "description", :value =>  task.description %>
+                  <%= f.hidden_field :owner, name: "owner", :value =>  task.owner %>
+                  <%= f.hidden_field :collaborator1, name: "collaborator1", :value =>  task.collaborator1 %>
+                  <%= f.hidden_field :collaborator2, name: "collaborator2", :value =>  task.collaborator2 %>
+                  <%= f.hidden_field :collaborator3, name: "collaborator3", :value =>  task.collaborator3 %>
+                  <%= f.hidden_field :done, name: "done", :value => task.done%>
                   <!--<!%= f.submit "Delete", :class => "taskRedFormButton delete-task" %>-->
                   <%= button_tag(type: 'submit', class: "taskRedFormButton delete-task") do %>
                     <span class="state">Delete</span>
@@ -129,14 +129,14 @@
                 <% end %><!--form delete task-->
               <% end  %><!--if task.owner == current_user.email-->
                 <%= form_for(@task, :html => {:class => "taskForm", :name => 'updatetask'}, url: '/task/complete') do |f| %>
-                  <%= f.hidden_field :id, :value =>  task.id %>
-                  <%= f.hidden_field :title, :value =>  task.title %>
-                  <%= f.hidden_field :description, :value =>  task.description %>
-                  <%= f.hidden_field :owner, :value =>  task.owner %>
-                  <%= f.hidden_field :collaborator1, :value =>  task.collaborator1 %>
-                  <%= f.hidden_field :collaborator2, :value =>  task.collaborator2 %>
-                  <%= f.hidden_field :collaborator3, :value =>  task.collaborator3 %>
-                  <%= f.hidden_field :done , :value => 1%>
+                  <%= f.hidden_field :id, name: "id", :value =>  task.id %>
+                  <%= f.hidden_field :title, name: "title", :value =>  task.title %>
+                  <%= f.hidden_field :description, name: "description", :value =>  task.description %>
+                  <%= f.hidden_field :owner, name: "owner", :value =>  task.owner %>
+                  <%= f.hidden_field :collaborator1, name: "collaborator1", :value =>  task.collaborator1 %>
+                  <%= f.hidden_field :collaborator2, name: "collaborator2", :value =>  task.collaborator2 %>
+                  <%= f.hidden_field :collaborator3, name: "collaborator3", :value =>  task.collaborator3 %>
+                  <%= f.hidden_field :done , name: "done", :value => 1%>
                   <!--<!%= f.submit "Not Complete", :class => "taskRedFormButton toggle-task" %>-->
                   <%= button_tag(type: 'submit', class: "taskRedFormButton toggle-task") do %>
                     <span class="state">Not Complete</span>

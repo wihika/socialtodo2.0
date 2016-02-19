@@ -3,19 +3,19 @@
     <h1>Sign up</h1>
     <div class="field">
       <%= f.label :name %><br>
-      <%= f.text_field :name, 'fl_name' =>"name"%>
+      <%= f.text_field :fl_name, name: "fl_name"%>
     </div>
     <div class="field">
       <%= f.label :email %><br>
-      <%= f.email_field :email , 'email' =>"name"%>
+      <%= f.email_field :email , name: "email"%>
     </div>
     <div class="field">
       <%= f.label :password %><br>
-      <%= f.password_field :password, 'password' =>"name"%>
+      <%= f.password_field :password, name: "password"%>
     </div>
     <div class="field">
       <%= f.label :password_confirmation, "Confirmation" %>
-      <%= f.password_field :password_confirmation, 'password' =>"name"%>
+      <%= f.password_field :password_confirmation, name: "password_confirmation"%>
     </div>
     <div class="actions">
       <!--<!%= f.submit :class => "submitButton sign-up-submit"%>-->

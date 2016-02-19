@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   # root 'welcome#index'
 
   root 'sessions#new'
-  get 'user/register' => 'users#new'
+  get 'user/register' => 'sessions#new'
   get 'login' => 'sessions#new'
   post 'user/register' => 'users#create'
   post 'user/login' => 'sessions#create'

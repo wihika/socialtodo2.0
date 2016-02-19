@@ -21,8 +21,39 @@
       </div>
     </div>
     <div class="wrapper">
-      <%= render 'users/form' %>
-    </div>
+      <!--<!%= render 'users/form' %>-->
+        <!--<!%= render 'shared/error_messages' %>-->
+      <% if @user.errors.any? %>
+          <ul>
+            <li  class ="validation-error"><%= @user.errors.full_messages.first %></li>
+          </ul>
+      <% end %>
+      <%= form_for(@user, :html => {:class => "login", :name => 'adduser'}, url: '/user/register') do |f| %>
+        <h1>Sign up</h1>
+        <div class="field">
+          <%= f.label :name %><br>
+          <%= f.text_field :fl_name, name: "fl_name"%>
+        </div>
+        <div class="field">
+          <%= f.label :email %><br>
+          <%= f.email_field :email , name: "email"%>
+        </div>
+        <div class="field">
+          <%= f.label :password %><br>
+          <%= f.password_field :password, name: "password"%>
+        </div>
+        <div class="field">
+          <%= f.label :password_confirmation, "Confirmation" %>
+          <%= f.password_field :password_confirmation, name: "password_confirmation"%>
+        </div>
+        <div class="actions">
+          <!--<!%= f.submit :class => "submitButton sign-up-submit"%>-->
+          <%= button_tag(type: 'submit', class: "submitButton sign-up-submit") do %>
+            <span class="state">Submit</span>
+          <% end %>
+        </div>
+      <% end  %>
+  </div>
     <!--<a href="/user/logout">Log out</a>-->
     <footer>
     </footer>
@@ -46,7 +77,53 @@
    </header>
    <div class="wrapper">
      <p><h>Welcome, <%= current_user.fl_name %></h></p>
-     <%= render 'tasks/form' %>
+     <!--<!%= render 'tasks/form' %>-->
+     
+     <%= form_for(@task, :html => {:class => "create-task login", :name => 'createtask'}, url: '/task/create') do |f| %>
+        <% if @task.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
+            <ul>
+            <% @task.errors.full_messages.each do |message| %>
+              <li  class ="validation-error"><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+      
+        <div class="field">
+          <%= f.label :title %><br>
+          <%= f.text_field :title, name: "title"%>
+        </div>
+        <div class="field">
+          <%= f.label :description %><br>
+          <%= f.text_field :description, name: "description"%>
+        </div>
+        <div class="field">
+          <%= f.hidden_field :owner, :value =>  current_user.email, name: "owner" %>
+        </div>
+        <div class="field">
+          <%= f.label :collaborator1 %><br>
+          <%= f.text_field :collaborator1, name: "collaborator1"%>
+        </div>
+        <div class="field">
+          <%= f.label :collaborator2 %><br>
+          <%= f.text_field :collaborator2, name: "collaborator2"%>
+        </div>
+        <div class="field">
+          <%= f.label :collaborator3 %><br>
+          <%= f.text_field :collaborator3, name: "collaborator3"%>
+        </div>
+        <div class="field">
+          <%= f.hidden_field :done , name: "done", :value => 0%>
+        </div>
+        <div class="actions">
+          <!--<!%= f.submit :class => "submitButton" %>-->
+          <%= button_tag(type: 'submit', class: "submitButton") do %>
+            <span class="state">Create</span>
+          <% end %>
+        </div>
+      <% end %>
    </div>
     <% if @tasks!=nil %>
       <% @tasks.each do |task| %>
@@ -55,15 +132,17 @@
           <div class = "tasks-list-item complete-task">
             <tr>
               <p>
+                <label>Title: </label>
                 <span class="task-title"><%= task.title%></span>
               </p>
               <p>
                 <label>Description: </label>
                 <%= task.description %>
               </p>
-              <p><%= task.collaborator1 %></p>
-              <p><%= task.collaborator2 %></p>
-              <p><%= task.collaborator3 %></p>
+              <p>
+                <label>Owner: </label>
+                <%= task.owner %>
+              </p>
               
               <% if task.owner == current_user.email  %>
                 <%= form_for(@task, :html => {:class => "taskForm", :name => 'deletetask'}, url: '/task/delete') do |f| %>
@@ -101,16 +180,17 @@
           <div class = "tasks-list-item">
             <tr>
               <p>
+                <label>Title: </label>
                 <span class="task-title"><%= task.title%></span>
               </p>
               <p>
                 <label>Description: </label>
                 <%= task.description %>
               </p>
-              <p><%= task.collaborator1 %></p>
-              <p><%= task.collaborator2 %></p>
-              <p><%= task.collaborator3 %></p>
-              
+              <p>
+                <label>Owner: </label>
+                <%= task.owner %>
+              </p>
               <% if task.owner == current_user.email  %>
                 <%= form_for(@task, :html => {:class => "taskForm", :name => 'deletetask'}, url: '/task/delete') do |f| %>
                   <%= f.hidden_field :id, name: "id", :value =>  task.id %>

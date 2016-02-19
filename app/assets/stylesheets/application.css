@@ -40,6 +40,10 @@ ul
     list-style-type: none;
 }
 
+div{
+  margin: 0 auto;
+}
+
 html{
     height: 100%;
 }

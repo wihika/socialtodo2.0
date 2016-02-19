@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
         @tasks = Task.where(owner: current_user.email).find_each
         redirect_to '/'
       else
-        flash.now[:danger] = 'Invalid email/password combination'
+        flash.now[:danger] = 'Invalid password'
         flash.keep(:danger)
         redirect_to '/'
       end
